@@ -21,12 +21,12 @@ Compra de Passagem
     E clico no botao Find Flights
     Entao exibe o titulo informando a origem e o destino
     Quando seleciono o primeiro voo
-#    E preencho o nome "Juca"
-#    E seleciono a bandeira "American Express"
-#    E marco a opcao Remember Me
-#    E clico no botao Purchase Flight
-#    Então exibe a mensagem "Thank you for your purchase today!"
-#    E exibe o preco da passagem como "555 USD"
+    E preencho o nome "Juca"
+    E seleciono a bandeira "American Express"
+    E marco a opcao Remember Me
+    E clico no botao Purchase Flight
+    Então exibe a mensagem "Thank you for your purchase today!"
+    E exibe o preco da passagem como "555 USD"
 
 
 
@@ -53,11 +53,25 @@ Entao exibe o titulo informando a origem e o destino
 
 Quando seleciono o primeiro voo
     click button    class = btn.btn-small
-E preencho o nome "Juca"
-E seleciono a bandeira "American Express"
+
+E preencho o nome "${nome}"
+    input text  id = inputName    ${nome}
+
+E seleciono a bandeira "${cartao}"
+    select from list by label   id = cardType   ${cartao}
+
 E marco a opcao Remember Me
+    click element   id = rememberMe
+
 E clico no botao Purchase Flight
-Então exibe a mensagem "Thank you for your purchase today!"
-E exibe o preco da passagem como "555 USD"
+    click button    class = btn.btn-primary
+
+Então exibe a mensagem "${mensagem}"
+    wait until element is visible   xpath = //h1
+    element should contain          xpath = //h1    ${mensagem}
+
+E exibe o preco da passagem como "${preco}"
+    element should contain  xpath = //tbody/tr[3]/td[2]   ${preco}
+
 Encerrar
     close browser
